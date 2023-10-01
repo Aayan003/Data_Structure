@@ -2,12 +2,10 @@
 #include <stdlib.h>
 #include <ctype.h>
 #include <string.h>
-//#include <stdbool.h>
 #include <math.h>
 typedef struct stackprogram
 {
     int top;
-    //int top_int;
     int size;
     char *a;
     int *ptr;
@@ -171,10 +169,8 @@ int value(char ch, stack *s)
 {
     int val;
     int a, b;
-    //printf("%d\n",s->top);
     a = pop_int(s);
     b = pop_int(s);
-    //printf("%d %d\n",a,b);
     switch(ch)
     {
         case '+' : val = b + a;
@@ -189,43 +185,31 @@ int value(char ch, stack *s)
             break;
         default : printf("Invalid input\n");
     }
-    //free(s -> a);
     return val;
 }
 int postfixtovalue(char *postfixed, stack *s2)
 {
     int len, val = 0;
-    //char *postfix;
-    //printf("\n%c%c%c%c%c%c\n", postfixed[0], postfixed[1], postfixed[2], postfixed[3], postfixed[4], postfixed[5]);
-    //postfix = infix_to_postfix(postfixed, s2);
     len = strlen(postfixed);
     postfixed[len + 1] = '\0';
-    //printf("\n%d, %d, len = %d\n", (int)(postfixed[1]), (int)('6'), len);
     for(int i = 0; postfixed[i] != '\0'; i++)
     {
-        //printf("\n%d\n", i);
             int temp;
         if((int)(postfixed[i] >= 48) && (int)(postfixed[i]) <= 57)
         {
-            //printf("\n\a%c\n", postfixed[i]);
             temp = postfixed[i] - '0';
             push_int(s2, temp);
         }
         else if(isoperator(postfixed[i]))
         {
-        		//printf("%c(), %d\n", postfixed[i], val);
             val = value(postfixed[i], s2);
             push_int(s2,val);
-            //printf("%c(), %d\n", postfixed[i], val);
         }
         else
         {
             val = -111111111;
-            //printf("%c\n", postfixed[i]);
         }
-        //printf("Peeking - %d\n", peek(s2));
     }
-    //free(s2 -> ptr);
     return peek_int(s2);
 }
 int main()
