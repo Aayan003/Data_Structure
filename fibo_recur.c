@@ -11,7 +11,7 @@ int fibo(int lim, int n_1, int n_2)
 	}
 	else
 	{
-		fibo(lim -1, n_2, n_1 + n_2);
+		return fibo(lim -1, n_2, n_1 + n_2);
 	}
 }
 int main()
